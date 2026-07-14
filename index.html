@@ -3,23 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f8fc">
+<meta name="theme-color" content="#f6f8fc">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="English Live">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="style.css?v=050">
-<title>Everyday English Live v0.5</title>
+<link rel="stylesheet" href="style.css?v=060">
+<title>Everyday English Live v0.6</title>
 </head>
 <body>
 <main class="app">
-<header>
-  <div><h1>Everyday English Live</h1><p>Japanese Anime Edition</p></div>
-  <button id="switchBtn">Sophieに変更</button>
+<header class="topbar">
+  <div>
+    <h1>Everyday English Live</h1>
+    <p>Japanese Anime Edition · No API</p>
+  </div>
+  <div class="top-actions">
+    <button id="memoryBtn" class="ghost">記憶</button>
+    <button id="switchBtn">Sophieに変更</button>
+  </div>
 </header>
 
 <section class="layout">
   <section class="stage">
     <div class="online"><i></i><span id="nameLabel">Mike</span></div>
+    <div id="moodLabel" class="mood">聞いています</div>
 
     <svg id="avatar" viewBox="0 0 520 620" aria-label="Anime character">
       <defs>
@@ -27,38 +35,44 @@
           <stop offset="0" stop-color="#ead9c8"/>
           <stop offset="1" stop-color="#c7b39e"/>
         </linearGradient>
+        <filter id="softShadow">
+          <feDropShadow dx="0" dy="7" stdDeviation="8" flood-opacity=".18"/>
+        </filter>
       </defs>
-      <rect width="520" height="620" rx="28" fill="url(#room)"/>
-      <rect x="40" y="110" width="120" height="160" rx="12" fill="#bda88f"/>
-      <rect x="360" y="90" width="110" height="190" rx="12" fill="#aa957e"/>
-      <circle cx="85" cy="80" r="28" fill="#fff2c7" opacity=".8"/>
 
-      <g id="character">
+      <rect width="520" height="620" rx="28" fill="url(#room)"/>
+      <rect x="38" y="105" width="124" height="168" rx="13" fill="#bca78d"/>
+      <rect x="359" y="89" width="112" height="194" rx="13" fill="#a9927a"/>
+      <circle cx="82" cy="75" r="30" fill="#fff4cc" opacity=".82"/>
+      <path d="M0 505 Q120 470 240 500 T520 500 V620 H0Z" fill="#b89572" opacity=".55"/>
+
+      <g id="character" filter="url(#softShadow)">
         <g id="body">
-          <path id="torso" d="M150 410 Q260 360 370 410 L430 620 H90Z" fill="#1f3658"/>
-          <path d="M225 385 L260 430 L295 385" fill="#f6f3ee"/>
+          <path id="torso" d="M148 408 Q260 354 372 408 L432 620 H88Z" fill="#1f3658"/>
+          <path d="M224 384 L260 431 L296 384" fill="#f6f3ee"/>
         </g>
 
         <g id="armLeft">
-          <path d="M150 430 Q95 455 85 540 Q105 565 135 548 Q142 485 185 465Z" fill="#f3c4a2"/>
-          <ellipse cx="93" cy="545" rx="28" ry="20" fill="#f3c4a2"/>
+          <path d="M148 428 Q92 454 82 540 Q104 567 135 548 Q142 485 187 462Z" fill="#f3c4a2"/>
+          <ellipse cx="92" cy="545" rx="29" ry="20" fill="#f3c4a2"/>
         </g>
 
         <g id="armRight">
-          <path d="M370 430 Q425 455 438 540 Q416 566 388 548 Q378 490 335 463Z" fill="#f3c4a2"/>
-          <ellipse cx="432" cy="545" rx="28" ry="20" fill="#f3c4a2"/>
+          <path d="M372 428 Q428 454 440 540 Q417 568 387 548 Q378 488 333 462Z" fill="#f3c4a2"/>
+          <ellipse cx="432" cy="545" rx="29" ry="20" fill="#f3c4a2"/>
         </g>
 
         <g id="head">
-          <path d="M230 350 L230 405 Q260 425 290 405 L290 350Z" fill="#f3c4a2"/>
+          <path d="M230 350 L230 405 Q260 426 290 405 L290 350Z" fill="#f3c4a2"/>
           <ellipse cx="260" cy="265" rx="112" ry="128" fill="#f3c4a2"/>
 
           <path id="hairBack" d="M145 272 Q132 118 260 112 Q392 115 375 280 Q350 210 310 184 Q250 145 182 191 Q158 213 145 272Z" fill="#2e2423"/>
           <path id="hairFront" d="M157 205 Q175 120 260 116 Q340 118 365 200 Q332 171 299 155 Q274 190 238 172 Q213 202 183 180Z" fill="#2e2423"/>
+          <path id="longHair" d="" fill="#2e2423"/>
 
           <g id="brows">
-            <path d="M190 246 Q218 230 238 244" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
-            <path d="M282 244 Q304 230 332 246" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path id="browL" d="M190 246 Q218 230 238 244" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path id="browR" d="M282 244 Q304 230 332 246" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
           </g>
 
           <g id="eyes">
@@ -66,8 +80,8 @@
             <ellipse id="eyeR" cx="305" cy="270" rx="25" ry="16" fill="white"/>
             <ellipse id="irisL" cx="218" cy="271" rx="10" ry="12" fill="#6d4a36"/>
             <ellipse id="irisR" cx="302" cy="271" rx="10" ry="12" fill="#6d4a36"/>
-            <circle cx="221" cy="267" r="3" fill="white"/>
-            <circle cx="305" cy="267" r="3" fill="white"/>
+            <circle id="shineL" cx="221" cy="267" r="3" fill="white"/>
+            <circle id="shineR" cx="305" cy="267" r="3" fill="white"/>
             <path id="lidL" d="M190 270 Q215 260 240 270" stroke="#302522" stroke-width="5" fill="none" opacity="0"/>
             <path id="lidR" d="M280 270 Q305 260 330 270" stroke="#302522" stroke-width="5" fill="none" opacity="0"/>
           </g>
@@ -82,6 +96,7 @@
           <path id="mouthClosed" d="M220 344 Q260 365 300 344" stroke="#9e4a4c" stroke-width="7" fill="none" stroke-linecap="round"/>
           <ellipse id="mouthOpen" cx="260" cy="349" rx="30" ry="17" fill="#7c2733" opacity="0"/>
           <path id="smile" d="M220 338 Q260 375 300 338" stroke="#9e4a4c" stroke-width="7" fill="none" stroke-linecap="round" opacity="0"/>
+          <path id="sadMouth" d="M224 356 Q260 330 296 356" stroke="#9e4a4c" stroke-width="7" fill="none" stroke-linecap="round" opacity="0"/>
         </g>
 
         <g id="gestureHand" opacity="0">
@@ -89,28 +104,45 @@
         </g>
       </g>
     </svg>
-    <div id="stateLabel">聞いています</div>
   </section>
 
   <section class="panel">
     <div class="question">
-      <b id="speaker">Mike</b>
+      <div class="question-meta">
+        <b id="speaker">Mike</b>
+        <span id="topicLabel">Daily life</span>
+      </div>
       <h2 id="qEn"></h2>
       <p id="qJp"></p>
     </div>
-    <div id="history" class="history"></div>
+
+    <div id="history" class="history" aria-live="polite"></div>
+
     <div class="answers">
       <h3>回答例</h3>
       <div id="choices"></div>
     </div>
+
     <form id="form">
-      <input id="input" placeholder="英語で入力">
-      <button>送信</button>
+      <input id="input" placeholder="英語で自由入力" autocomplete="off">
+      <button type="submit">送信</button>
+      <button type="button" id="micBtn" class="mic">🎙</button>
     </form>
+
     <p id="status">回答例を選ぶか、英語で入力してください。</p>
   </section>
 </section>
+
+<dialog id="memoryDialog">
+  <h2>会話の記憶</h2>
+  <div id="memoryContent"></div>
+  <div class="dialog-actions">
+    <button id="clearMemory" class="danger">記憶を消去</button>
+    <button id="closeMemory">閉じる</button>
+  </div>
+</dialog>
 </main>
-<script src="script.js?v=050"></script>
+
+<script src="script.js?v=060"></script>
 </body>
 </html>

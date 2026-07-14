@@ -64,3 +64,122 @@ button, input { font: inherit; }
 @media (min-width:700px) {
   .app { padding-left:34px; padding-right:34px; }
 }
+
+html, body { height: 100%; overflow: hidden; }
+.app {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  overflow: hidden;
+}
+.video-card {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  max-height: 42dvh;
+}
+.conversation-panel {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 2px;
+}
+.chat { min-height: unset; }
+.composer { position: relative; z-index: 6; }
+.video-card img {
+  transition: transform .45s ease, filter .45s ease;
+}
+.video-card img.expression-happy {
+  transform: scale(1.025);
+  filter: brightness(1.04) saturate(1.06);
+}
+.video-card img.expression-thinking {
+  transform: scale(1.01) translateY(2px);
+  filter: contrast(.98) brightness(.98);
+}
+.video-card img.expression-speaking {
+  animation: speakingMotion .75s ease-in-out infinite alternate;
+}
+@keyframes speakingMotion {
+  from { transform: scale(1.012) translateY(0); }
+  to { transform: scale(1.022) translateY(-2px); }
+}
+@media (max-height: 760px) {
+  .video-card { max-height: 34dvh; }
+}
+
+.voice-button {
+  border: 1px solid #d7dce5;
+  background: white;
+  border-radius: 14px;
+  padding: 10px 12px;
+  color: #2259a8;
+  font-size: .82rem;
+}
+.video-card {
+  background: linear-gradient(180deg, #dfe6ee, #cbd4df);
+}
+.video-card img {
+  object-fit: contain;
+  object-position: center 58%;
+  transform: scale(.84);
+  transform-origin: center 58%;
+  transition: transform .45s ease, filter .45s ease;
+}
+.video-card img.expression-happy {
+  transform: scale(.87) translateY(-2px);
+}
+.video-card img.expression-thinking {
+  transform: scale(.84) translateX(3px) rotate(.7deg);
+}
+.video-card img.expression-surprised {
+  transform: scale(.86) translateY(-3px);
+  filter: brightness(1.05) contrast(1.03);
+}
+.video-card img.expression-sad {
+  transform: scale(.83) translateY(3px) rotate(-.4deg);
+  filter: saturate(.9) brightness(.97);
+}
+.video-card img.gesture-nod {
+  animation: nodGesture .72s ease-in-out 2;
+}
+.video-card img.gesture-wave {
+  animation: waveGesture 1.15s ease-in-out 1;
+}
+.video-card img.gesture-shrug {
+  animation: shrugGesture .9s ease-in-out 1;
+}
+.video-card img.gesture-lean {
+  animation: leanGesture 1s ease-in-out 1;
+}
+.video-card img.blinking {
+  filter: brightness(.94);
+  transform: scale(.84) translateY(1px);
+}
+@keyframes nodGesture {
+  0%,100% { transform: scale(.84) translateY(0) rotate(0); }
+  45% { transform: scale(.84) translateY(5px) rotate(.6deg); }
+}
+@keyframes waveGesture {
+  0%,100% { transform: scale(.84) translateX(0) rotate(0); }
+  35% { transform: scale(.86) translateX(-7px) rotate(-1.1deg); }
+  70% { transform: scale(.85) translateX(5px) rotate(.8deg); }
+}
+@keyframes shrugGesture {
+  0%,100% { transform: scale(.84) translateY(0); }
+  50% { transform: scale(.85) translateY(-7px); }
+}
+@keyframes leanGesture {
+  0%,100% { transform: scale(.84) translateY(0); }
+  50% { transform: scale(.89) translateY(-2px); }
+}
+@media (max-width: 520px) {
+  .video-card { aspect-ratio: 16 / 10; }
+  .video-card img,
+  .video-card img.expression-happy,
+  .video-card img.expression-thinking,
+  .video-card img.expression-surprised,
+  .video-card img.expression-sad {
+    transform-origin: center 55%;
+  }
+}

@@ -1,22 +1,15 @@
-# Everyday English Live v0.2.1
+# Everyday English Live v0.3
 
-iPhone Safari / GitHub Pagesで試せる英会話PWAテスト版です。
+API不使用版です。
 
-## テスト機能
-- Mike / Sophie切り替え
-- 太めスクエア眼鏡
-- Sophieは髪を下ろしたスタイル
-- 英語音声読み上げ
-- Safari対応範囲での音声入力
-- 回答例と文字入力
-- ホーム画面追加
-- オフラインキャッシュ
+## 追加
+- 人物表示を縮小
+- 表情変化
+- うなずき、身振り、前傾などの動き
+- ランダムなまばたき
+- 待機中の小さな動き
+- 端末内の英語音声候補を切り替える「声」ボタン
+- Safari標準音声の速度・高さを自然寄りに調整
 
-## GitHub Pages
-リポジトリ直下へ全ファイルをアップロードし、Settings > Pages から main / root を公開してください。
-
-
-## v0.2.1 fixes
-- Character images moved to repository root
-- Separate voice selection for Mike and Sophie
-- Cache version updated
+## 制限
+外部APIを使用していないため、完全な自由会話や高品質AI音声ではありません。

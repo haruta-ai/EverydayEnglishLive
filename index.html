@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="English Live">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-192.png?v=021">
-  <link rel="stylesheet" href="style.css?v=021">
+  <link rel="stylesheet" href="style.css?v=030">
   <title>Everyday English Live</title>
 </head>
 <body>
@@ -21,10 +21,11 @@
         <p>Your English friend</p>
       </div>
       <button class="switch-button" id="switchCharacter">Sophieに変更</button>
+      <button class="voice-button" id="voiceButton" aria-label="声を変更">声</button>
     </header>
 
     <section class="video-card">
-      <img id="characterImage" src="mike-square-glasses.jpg?v=021" alt="Mike">
+      <img id="characterImage" src="mike-neutral.jpg?v=022" alt="Mike">
       <div class="live-pill">▥ 会話中</div>
       <div class="character-caption">
         <strong id="captionName">Mike</strong>
@@ -32,9 +33,10 @@
       </div>
     </section>
 
-    <section class="chat" id="chat" aria-live="polite"></section>
-
-    <section class="suggestions" id="suggestions"></section>
+    <section class="conversation-panel">
+      <section class="chat" id="chat" aria-live="polite"></section>
+      <section class="suggestions" id="suggestions"></section>
+    </section>
 
     <form class="composer" id="composer">
       <input id="textInput" type="text" autocomplete="off" placeholder="英語で入力してもOK">
@@ -44,6 +46,6 @@
 
     <p class="status" id="status">回答例をタップするか、マイクで話してください。</p>
   </main>
-  <script src="script.js?v=021"></script>
+  <script src="script.js?v=030"></script>
 </body>
 </html>

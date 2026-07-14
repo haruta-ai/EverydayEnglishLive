@@ -2,184 +2,155 @@
 :root {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #111827;
-  background: #eef1f6;
+  background: #eef2f7;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: linear-gradient(#f8fafc, #eef2f7); }
-button, input { font: inherit; }
+html, body { margin: 0; min-height: 100%; }
+body { background: linear-gradient(180deg,#f8fafc,#edf1f6); }
+button,input { font: inherit; }
+
 .app {
-  width: min(100%, 760px);
+  width: min(1180px, 100%);
   min-height: 100dvh;
   margin: auto;
-  padding: calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 24px);
-  background: rgba(255,255,255,.88);
+  padding: calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 20px);
 }
-.topbar { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
-.topbar h1 { margin:0; font-size:1.45rem; }
-.topbar h1 span { font-size:.8rem; color:#25a55f; font-weight:600; }
-.topbar p { margin:2px 0 0; color:#6b7280; }
-.icon-button, .switch-button {
-  border:1px solid #d7dce5; background:white; border-radius:14px; padding:10px 12px;
+
+.topbar {
+  display:flex; align-items:center; gap:12px; margin-bottom:14px;
 }
-.switch-button { margin-left:auto; font-size:.82rem; color:#2259a8; }
-.video-card {
-  position:relative; overflow:hidden; border-radius:24px; aspect-ratio: 4 / 3;
-  background:#dde3eb; box-shadow:0 14px 35px rgba(17,24,39,.12);
+.topbar h1 { margin:0; font-size:clamp(1.25rem,3vw,1.8rem); }
+.topbar p { margin:3px 0 0; color:#6b7280; }
+.switch-button {
+  margin-left:auto; border:1px solid #cfd7e3; background:white;
+  border-radius:14px; padding:10px 14px; color:#1f5fbf; font-weight:700;
 }
-.video-card img { width:100%; height:100%; object-fit:cover; display:block; }
-.live-pill {
-  position:absolute; top:14px; left:14px; background:rgba(0,0,0,.55); color:white;
-  padding:8px 12px; border-radius:12px; font-size:.85rem;
+
+.call-layout {
+  display:grid; grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr); gap:16px;
 }
-.character-caption {
-  position:absolute; left:14px; bottom:14px; color:white; background:rgba(0,0,0,.46);
-  backdrop-filter:blur(8px); padding:9px 12px; border-radius:12px; display:flex; flex-direction:column;
+.video-card, .conversation-card {
+  background:white; border:1px solid #dde3eb; border-radius:24px;
+  box-shadow:0 15px 40px rgba(15,23,42,.09);
 }
-.character-caption span { font-size:.74rem; opacity:.85; }
-.chat { padding:18px 2px 6px; display:flex; flex-direction:column; gap:12px; min-height:180px; }
+.video-card { position:relative; overflow:hidden; min-height:640px; }
+.avatar { width:100%; height:100%; display:block; }
+.online-badge {
+  position:absolute; top:16px; left:16px; z-index:4; color:white;
+  background:rgba(17,24,39,.72); border-radius:14px; padding:10px 13px;
+  display:flex; align-items:center; gap:8px;
+}
+.online-badge span { width:10px; height:10px; background:#35c66b; border-radius:50%; }
+.expression-label {
+  position:absolute; right:16px; top:16px; color:white;
+  background:rgba(17,24,39,.56); padding:8px 12px; border-radius:12px;
+  font-size:.82rem;
+}
+
+.skin { fill:#e5ae83; }
+.shirt { fill:#18385b; }
+.hair { fill:#3a2a22; }
+.brow { fill:none; stroke:#49342b; stroke-width:7; stroke-linecap:round; }
+.lid { fill:none; stroke:#2d343b; stroke-width:4; stroke-linecap:round; opacity:0; }
+.glasses { fill:none; stroke:#141a20; stroke-width:7; }
+.glasses-line { fill:none; stroke:#141a20; stroke-width:6; stroke-linecap:round; }
+.nose { fill:none; stroke:#c88965; stroke-width:4; stroke-linecap:round; }
+.mouth-line { fill:none; stroke:#8f3d3b; stroke-width:6; stroke-linecap:round; }
+.mouth-open { fill:#6f262d; opacity:0; }
+
+.head { transform-origin:210px 300px; }
+.limb { transform-origin:210px 360px; }
+.gesture-hand { opacity:0; transform-origin:330px 390px; }
+
+.avatar.listening #headGroup { animation: breatheHead 4.4s ease-in-out infinite; }
+.avatar.listening #bodyGroup { animation: breatheBody 4.4s ease-in-out infinite; }
+.avatar.speaking #mouthOpen { opacity:1; animation: talkMouth .22s ease-in-out infinite alternate; }
+.avatar.speaking #mouthClosed, .avatar.speaking #smileLine { opacity:0; }
+.avatar.happy #smileLine { opacity:1; }
+.avatar.happy #mouthClosed { opacity:0; }
+.avatar.thinking #headGroup { transform: rotate(-4deg) translate(-2px,2px); }
+.avatar.thinking #pupilLeft, .avatar.thinking #pupilRight { transform:translate(5px,-2px); }
+.avatar.surprised #mouthOpen { opacity:1; transform:scale(.72); }
+.avatar.surprised #mouthClosed, .avatar.surprised #smileLine { opacity:0; }
+.avatar.surprised #browLeft, .avatar.surprised #browRight { transform:translateY(-8px); }
+.avatar.nodding #headGroup { animation:nod .7s ease-in-out 2; }
+.avatar.waving #gestureHand { opacity:1; animation:wave 1.1s ease-in-out 2; }
+.avatar.explaining #rightArm { animation:explainArm 1.2s ease-in-out infinite alternate; }
+.avatar.explaining #gestureHand { opacity:1; transform:translate(-22px,6px) rotate(-28deg) scale(.8); }
+.avatar.blink #eyeLeft, .avatar.blink #eyeRight,
+.avatar.blink #pupilLeft, .avatar.blink #pupilRight { opacity:0; }
+.avatar.blink #lidLeft, .avatar.blink #lidRight { opacity:1; }
+
+@keyframes breatheHead {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(1.5px); }
+}
+@keyframes breatheBody {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.004); }
+}
+@keyframes talkMouth {
+  from { ry:7px; rx:24px; }
+  to { ry:16px; rx:28px; }
+}
+@keyframes nod {
+  0%,100% { transform:rotate(0) translateY(0); }
+  45% { transform:rotate(2deg) translateY(8px); }
+}
+@keyframes wave {
+  0%,100% { transform:translate(0,0) rotate(-4deg); }
+  50% { transform:translate(-8px,-12px) rotate(12deg); }
+}
+@keyframes explainArm {
+  from { transform:rotate(0deg) translate(0,0); }
+  to { transform:rotate(-5deg) translate(-6px,-8px); }
+}
+
+.conversation-card {
+  min-height:640px; padding:18px; display:grid;
+  grid-template-rows:auto minmax(120px,1fr) auto auto auto; gap:12px;
+}
+.question-box {
+  background:#eef5ff; border-radius:18px; padding:15px;
+}
+.question-box span { color:#1f5fbf; font-weight:800; }
+.question-box h2 { margin:7px 0 5px; font-size:1.25rem; }
+.question-box p { margin:0; color:#5f6875; }
+
+.history {
+  overflow:auto; min-height:140px; max-height:220px;
+  display:flex; flex-direction:column; gap:9px; padding:4px;
+}
 .message {
-  max-width:86%; padding:12px 14px; border-radius:18px; line-height:1.45;
-  box-shadow:0 4px 12px rgba(17,24,39,.05);
+  max-width:88%; padding:10px 12px; border-radius:15px; line-height:1.4;
 }
-.message.friend { background:white; border:1px solid #e1e5eb; align-self:flex-start; border-bottom-left-radius:6px; }
-.message.user { background:#dcecff; align-self:flex-end; border-bottom-right-radius:6px; }
-.message .jp { display:block; color:#5f6775; font-size:.86rem; margin-top:5px; }
-.suggestions { display:grid; gap:9px; margin:10px 0 14px; }
-.suggestion {
-  text-align:left; background:white; color:#174d9b; border:1.5px solid #4d83d2;
-  border-radius:16px; padding:12px 14px; font-weight:650;
-}
-.suggestion small { display:block; color:#5d6675; font-weight:400; margin-top:3px; }
-.composer {
-  display:grid; grid-template-columns:1fr auto auto; gap:8px; position:sticky; bottom:0;
-  background:rgba(255,255,255,.94); padding:10px 0 calc(env(safe-area-inset-bottom) + 4px);
-  backdrop-filter:blur(10px);
-}
-.composer input { min-width:0; border:1px solid #cfd6e2; border-radius:15px; padding:13px; }
-.send-button { border:0; border-radius:15px; padding:0 15px; background:#1f66c7; color:white; }
-.mic-button { width:50px; height:50px; border:0; border-radius:50%; background:#2876d5; color:white; font-size:1.3rem; }
-.mic-button.listening { animation:pulse 1s infinite; background:#d84d67; }
-.status { margin:0; color:#737b89; font-size:.8rem; text-align:center; }
-@keyframes pulse { 50% { transform:scale(1.08); } }
-@media (min-width:700px) {
-  .app { padding-left:34px; padding-right:34px; }
-}
+.message.friend { align-self:flex-start; background:#f1f5f9; }
+.message.user { align-self:flex-end; background:#dcfce7; }
+.message small { display:block; color:#69717e; margin-top:3px; }
 
-html, body { height: 100%; overflow: hidden; }
-.app {
-  height: 100dvh;
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
-  overflow: hidden;
+.answers h3 { margin:0 0 8px; }
+#answerButtons { display:grid; gap:8px; }
+.answer-button {
+  text-align:left; border:1px solid #cbd6e5; background:white;
+  border-radius:14px; padding:11px 12px; color:#174d9b; font-weight:700;
 }
-.video-card {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  max-height: 42dvh;
-}
-.conversation-panel {
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding-right: 2px;
-}
-.chat { min-height: unset; }
-.composer { position: relative; z-index: 6; }
-.video-card img {
-  transition: transform .45s ease, filter .45s ease;
-}
-.video-card img.expression-happy {
-  transform: scale(1.025);
-  filter: brightness(1.04) saturate(1.06);
-}
-.video-card img.expression-thinking {
-  transform: scale(1.01) translateY(2px);
-  filter: contrast(.98) brightness(.98);
-}
-.video-card img.expression-speaking {
-  animation: speakingMotion .75s ease-in-out infinite alternate;
-}
-@keyframes speakingMotion {
-  from { transform: scale(1.012) translateY(0); }
-  to { transform: scale(1.022) translateY(-2px); }
-}
-@media (max-height: 760px) {
-  .video-card { max-height: 34dvh; }
-}
+.answer-button small { display:block; color:#667085; margin-top:3px; font-weight:400; }
 
-.voice-button {
-  border: 1px solid #d7dce5;
-  background: white;
-  border-radius: 14px;
-  padding: 10px 12px;
-  color: #2259a8;
-  font-size: .82rem;
+.composer { display:grid; grid-template-columns:1fr auto auto; gap:8px; }
+.composer input { min-width:0; border:1px solid #ccd5e2; border-radius:14px; padding:12px; }
+.composer button { border:0; border-radius:14px; padding:0 15px; background:#246ed1; color:white; }
+.composer .mic { width:48px; padding:0; border-radius:50%; }
+.status { margin:0; color:#727b88; text-align:center; font-size:.8rem; }
+
+@media (max-width:800px) {
+  .call-layout { grid-template-columns:1fr; }
+  .video-card { min-height:0; height:48dvh; }
+  .conversation-card { min-height:auto; }
 }
-.video-card {
-  background: linear-gradient(180deg, #dfe6ee, #cbd4df);
-}
-.video-card img {
-  object-fit: contain;
-  object-position: center 58%;
-  transform: scale(.84);
-  transform-origin: center 58%;
-  transition: transform .45s ease, filter .45s ease;
-}
-.video-card img.expression-happy {
-  transform: scale(.87) translateY(-2px);
-}
-.video-card img.expression-thinking {
-  transform: scale(.84) translateX(3px) rotate(.7deg);
-}
-.video-card img.expression-surprised {
-  transform: scale(.86) translateY(-3px);
-  filter: brightness(1.05) contrast(1.03);
-}
-.video-card img.expression-sad {
-  transform: scale(.83) translateY(3px) rotate(-.4deg);
-  filter: saturate(.9) brightness(.97);
-}
-.video-card img.gesture-nod {
-  animation: nodGesture .72s ease-in-out 2;
-}
-.video-card img.gesture-wave {
-  animation: waveGesture 1.15s ease-in-out 1;
-}
-.video-card img.gesture-shrug {
-  animation: shrugGesture .9s ease-in-out 1;
-}
-.video-card img.gesture-lean {
-  animation: leanGesture 1s ease-in-out 1;
-}
-.video-card img.blinking {
-  filter: brightness(.94);
-  transform: scale(.84) translateY(1px);
-}
-@keyframes nodGesture {
-  0%,100% { transform: scale(.84) translateY(0) rotate(0); }
-  45% { transform: scale(.84) translateY(5px) rotate(.6deg); }
-}
-@keyframes waveGesture {
-  0%,100% { transform: scale(.84) translateX(0) rotate(0); }
-  35% { transform: scale(.86) translateX(-7px) rotate(-1.1deg); }
-  70% { transform: scale(.85) translateX(5px) rotate(.8deg); }
-}
-@keyframes shrugGesture {
-  0%,100% { transform: scale(.84) translateY(0); }
-  50% { transform: scale(.85) translateY(-7px); }
-}
-@keyframes leanGesture {
-  0%,100% { transform: scale(.84) translateY(0); }
-  50% { transform: scale(.89) translateY(-2px); }
-}
-@media (max-width: 520px) {
-  .video-card { aspect-ratio: 16 / 10; }
-  .video-card img,
-  .video-card img.expression-happy,
-  .video-card img.expression-thinking,
-  .video-card img.expression-surprised,
-  .video-card img.expression-sad {
-    transform-origin: center 55%;
-  }
+@media (max-width:520px) {
+  .app { padding-left:10px; padding-right:10px; }
+  .topbar p { display:none; }
+  .switch-button { padding:9px 11px; font-size:.82rem; }
+  .video-card { height:46dvh; }
+  .conversation-card { padding:13px; border-radius:20px; }
 }

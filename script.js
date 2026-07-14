@@ -2,14 +2,14 @@
 const characters = {
   mike: {
     name: "Mike",
-    image: "assets/mike-square-glasses.jpg",
+    image: "mike-square-glasses.jpg?v=021",
     mood: "Relaxed & friendly",
     next: "Sophieに変更",
     opening: ["Hey! How was your day?", "やあ！今日はどんな一日だった？"]
   },
   sophie: {
     name: "Sophie",
-    image: "assets/sophie-square-glasses.jpg",
+    image: "sophie-square-glasses.jpg?v=021",
     mood: "Warm & thoughtful",
     next: "Mikeに変更",
     opening: ["Hi! What have you been up to today?", "こんにちは！今日は何をしていたの？"]
@@ -64,19 +64,57 @@ function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+let availableVoices = [];
+
+function refreshVoices() {
+  availableVoices = speechSynthesis.getVoices();
+}
+if ("speechSynthesis" in window) {
+  refreshVoices();
+  speechSynthesis.onvoiceschanged = refreshVoices;
+}
+
+function chooseVoice(characterKey) {
+  const voices = availableVoices.filter(v => /^en[-_]/i.test(v.lang));
+  const preferred = characterKey === "sophie"
+    ? ["Samantha", "Ava", "Zoe", "Karen", "Moira", "Tessa", "Serena", "Female"]
+    : ["Daniel", "Alex", "Tom", "Fred", "Arthur", "Oliver", "Male"];
+
+  for (const keyword of preferred) {
+    const found = voices.find(v => v.name.toLowerCase().includes(keyword.toLowerCase()));
+    if (found) return found;
+  }
+
+  // Use different fallback voices when possible.
+  if (voices.length > 1) {
+    return characterKey === "sophie" ? voices[voices.length - 1] : voices[0];
+  }
+  return voices[0] || null;
+}
+
 function speak(text) {
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
+
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
-  utterance.rate = 0.92;
+  utterance.rate = currentCharacter === "sophie" ? 0.96 : 0.90;
+  utterance.pitch = currentCharacter === "sophie" ? 1.14 : 0.88;
+
+  const voice = chooseVoice(currentCharacter);
+  if (voice) utterance.voice = voice;
+
   speechSynthesis.speak(utterance);
 }
 
 function renderCharacter(reset = true) {
   const c = characters[currentCharacter];
   document.querySelector("#characterName").innerHTML = `${c.name} <span>● Online</span>`;
-  document.querySelector("#characterImage").src = c.image;
+  const characterImage = document.querySelector("#characterImage");
+  characterImage.onerror = () => {
+    statusEl.textContent = "画像を読み込めません。最新版へ更新して再読み込みしてください。";
+  };
+  characterImage.src = c.image;
   document.querySelector("#characterImage").alt = c.name;
   document.querySelector("#captionName").textContent = c.name;
   document.querySelector("#captionMood").textContent = c.mood;

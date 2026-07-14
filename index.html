@@ -1,144 +1,116 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f5f7fb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="English Live">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <link rel="stylesheet" href="style.css?v=040">
-  <title>Everyday English Live v0.4</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f8fc">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css?v=050">
+<title>Everyday English Live v0.5</title>
 </head>
 <body>
-  <main class="app">
-    <header class="topbar">
-      <div>
-        <h1>Everyday English Live</h1>
-        <p>APIなし・動作テスト版</p>
-      </div>
-      <button id="switchCharacter" class="switch-button">Sophieに変更</button>
-    </header>
+<main class="app">
+<header>
+  <div><h1>Everyday English Live</h1><p>Japanese Anime Edition</p></div>
+  <button id="switchBtn">Sophieに変更</button>
+</header>
 
-    <section class="call-layout">
-      <section class="video-card" aria-label="キャラクター画面">
-        <div class="online-badge"><span></span><strong id="characterName">Mike</strong></div>
+<section class="layout">
+  <section class="stage">
+    <div class="online"><i></i><span id="nameLabel">Mike</span></div>
 
-        <svg id="avatar" class="avatar" viewBox="0 0 420 500" role="img" aria-label="会話相手">
-          <defs>
-            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#dfe6ee"/>
-              <stop offset="100%" stop-color="#c7d0da"/>
-            </linearGradient>
-            <filter id="shadow">
-              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity=".18"/>
-            </filter>
-          </defs>
+    <svg id="avatar" viewBox="0 0 520 620" aria-label="Anime character">
+      <defs>
+        <linearGradient id="room" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ead9c8"/>
+          <stop offset="1" stop-color="#c7b39e"/>
+        </linearGradient>
+      </defs>
+      <rect width="520" height="620" rx="28" fill="url(#room)"/>
+      <rect x="40" y="110" width="120" height="160" rx="12" fill="#bda88f"/>
+      <rect x="360" y="90" width="110" height="190" rx="12" fill="#aa957e"/>
+      <circle cx="85" cy="80" r="28" fill="#fff2c7" opacity=".8"/>
 
-          <rect width="420" height="500" rx="26" fill="url(#bgGrad)"/>
-          <circle cx="78" cy="108" r="46" fill="#f4e6c8" opacity=".45"/>
-          <rect x="38" y="290" width="90" height="140" rx="12" fill="#aab5c1" opacity=".42"/>
-          <rect x="300" y="260" width="72" height="170" rx="10" fill="#9ba8b5" opacity=".36"/>
+      <g id="character">
+        <g id="body">
+          <path id="torso" d="M150 410 Q260 360 370 410 L430 620 H90Z" fill="#1f3658"/>
+          <path d="M225 385 L260 430 L295 385" fill="#f6f3ee"/>
+        </g>
 
-          <g id="bodyGroup" filter="url(#shadow)">
-            <g id="leftArm" class="limb left-arm">
-              <path d="M148 347 C102 352, 82 395, 92 453 C105 472, 128 468, 137 446 C130 404, 148 385, 174 373Z" class="skin"/>
-              <ellipse cx="105" cy="451" rx="26" ry="18" class="skin"/>
-            </g>
-            <g id="rightArm" class="limb right-arm">
-              <path d="M272 347 C323 350, 346 392, 337 452 C326 471, 303 468, 294 446 C300 407, 284 385, 248 372Z" class="skin"/>
-              <ellipse cx="325" cy="451" rx="26" ry="18" class="skin"/>
-            </g>
+        <g id="armLeft">
+          <path d="M150 430 Q95 455 85 540 Q105 565 135 548 Q142 485 185 465Z" fill="#f3c4a2"/>
+          <ellipse cx="93" cy="545" rx="28" ry="20" fill="#f3c4a2"/>
+        </g>
 
-            <path id="torso" d="M136 330 C155 307, 181 298, 210 298 C239 298, 266 307, 284 330 L316 500 H104Z" class="shirt"/>
-            <path d="M188 300 L210 331 L232 300" fill="none" stroke="#f2f4f7" stroke-width="8" stroke-linecap="round"/>
+        <g id="armRight">
+          <path d="M370 430 Q425 455 438 540 Q416 566 388 548 Q378 490 335 463Z" fill="#f3c4a2"/>
+          <ellipse cx="432" cy="545" rx="28" ry="20" fill="#f3c4a2"/>
+        </g>
 
-            <g id="neckGroup">
-              <path d="M184 268 L181 315 Q210 335 239 315 L236 268Z" class="skin"/>
-            </g>
+        <g id="head">
+          <path d="M230 350 L230 405 Q260 425 290 405 L290 350Z" fill="#f3c4a2"/>
+          <ellipse cx="260" cy="265" rx="112" ry="128" fill="#f3c4a2"/>
 
-            <g id="headGroup" class="head">
-              <ellipse cx="210" cy="202" rx="92" ry="105" class="skin"/>
+          <path id="hairBack" d="M145 272 Q132 118 260 112 Q392 115 375 280 Q350 210 310 184 Q250 145 182 191 Q158 213 145 272Z" fill="#2e2423"/>
+          <path id="hairFront" d="M157 205 Q175 120 260 116 Q340 118 365 200 Q332 171 299 155 Q274 190 238 172 Q213 202 183 180Z" fill="#2e2423"/>
 
-              <path id="hair" d="M127 188 C119 117, 160 82, 210 88 C270 72, 305 121, 290 188 C271 148, 248 135, 206 136 C165 137, 144 153, 127 188Z" class="hair"/>
-              <path id="hairSide" d="M125 171 C112 207, 119 241, 139 266 C132 226, 134 195, 147 168Z" class="hair"/>
-
-              <g id="ears">
-                <ellipse cx="121" cy="207" rx="13" ry="23" class="skin"/>
-                <ellipse cx="299" cy="207" rx="13" ry="23" class="skin"/>
-              </g>
-
-              <g id="faceFeatures">
-                <path id="browLeft" d="M158 181 Q178 171 194 180" class="brow"/>
-                <path id="browRight" d="M226 180 Q243 171 263 181" class="brow"/>
-
-                <g id="eyes">
-                  <ellipse id="eyeLeft" cx="176" cy="201" rx="16" ry="10" fill="#fff"/>
-                  <ellipse id="eyeRight" cx="244" cy="201" rx="16" ry="10" fill="#fff"/>
-                  <circle id="pupilLeft" cx="178" cy="202" r="5" fill="#27313a"/>
-                  <circle id="pupilRight" cx="242" cy="202" r="5" fill="#27313a"/>
-                  <path id="lidLeft" d="M160 201 Q176 195 192 201" class="lid"/>
-                  <path id="lidRight" d="M228 201 Q244 195 260 201" class="lid"/>
-                </g>
-
-                <g id="glasses">
-                  <rect x="149" y="183" width="54" height="39" rx="10" class="glasses"/>
-                  <rect x="217" y="183" width="54" height="39" rx="10" class="glasses"/>
-                  <path d="M203 194 Q210 189 217 194" class="glasses-line"/>
-                  <path d="M149 191 L132 185 M271 191 L288 185" class="glasses-line"/>
-                </g>
-
-                <path id="nose" d="M210 202 Q202 229 211 233 Q218 232 221 228" class="nose"/>
-
-                <g id="mouthGroup">
-                  <path id="mouthClosed" d="M178 257 Q210 274 242 257" class="mouth-line"/>
-                  <ellipse id="mouthOpen" cx="210" cy="261" rx="26" ry="12" class="mouth-open"/>
-                  <path id="smileLine" d="M178 254 Q210 282 242 254" class="mouth-line"/>
-                </g>
-              </g>
-            </g>
+          <g id="brows">
+            <path d="M190 246 Q218 230 238 244" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path d="M282 244 Q304 230 332 246" stroke="#382b29" stroke-width="8" fill="none" stroke-linecap="round"/>
           </g>
 
-          <g id="gestureHand" class="gesture-hand">
-            <path d="M310 360 C335 332, 350 309, 357 279 C360 267, 374 265, 378 277 C381 292, 375 310, 371 322 C386 306, 395 311, 391 323 C388 335, 378 347, 367 357 C389 345, 397 353, 388 365 C379 377, 363 383, 349 385 C367 384, 371 394, 359 401 C341 411, 321 405, 306 393Z" class="skin"/>
+          <g id="eyes">
+            <ellipse id="eyeL" cx="215" cy="270" rx="25" ry="16" fill="white"/>
+            <ellipse id="eyeR" cx="305" cy="270" rx="25" ry="16" fill="white"/>
+            <ellipse id="irisL" cx="218" cy="271" rx="10" ry="12" fill="#6d4a36"/>
+            <ellipse id="irisR" cx="302" cy="271" rx="10" ry="12" fill="#6d4a36"/>
+            <circle cx="221" cy="267" r="3" fill="white"/>
+            <circle cx="305" cy="267" r="3" fill="white"/>
+            <path id="lidL" d="M190 270 Q215 260 240 270" stroke="#302522" stroke-width="5" fill="none" opacity="0"/>
+            <path id="lidR" d="M280 270 Q305 260 330 270" stroke="#302522" stroke-width="5" fill="none" opacity="0"/>
           </g>
 
-          <g class="call-controls">
-            <circle cx="166" cy="455" r="26" fill="rgba(17,24,39,.72)"/>
-            <text x="166" y="463" text-anchor="middle" font-size="25">🎙</text>
-            <circle cx="254" cy="455" r="26" fill="#ef4444"/>
-            <text x="254" y="463" text-anchor="middle" font-size="23">☎</text>
+          <g id="glasses">
+            <rect x="179" y="245" width="72" height="52" rx="14" fill="none" stroke="#151515" stroke-width="8"/>
+            <rect x="269" y="245" width="72" height="52" rx="14" fill="none" stroke="#151515" stroke-width="8"/>
+            <path d="M251 260 Q260 253 269 260" stroke="#151515" stroke-width="7" fill="none"/>
           </g>
-        </svg>
 
-        <div class="expression-label" id="expressionLabel">聞いています</div>
-      </section>
+          <path d="M260 280 Q250 315 265 320" stroke="#d28f72" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path id="mouthClosed" d="M220 344 Q260 365 300 344" stroke="#9e4a4c" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <ellipse id="mouthOpen" cx="260" cy="349" rx="30" ry="17" fill="#7c2733" opacity="0"/>
+          <path id="smile" d="M220 338 Q260 375 300 338" stroke="#9e4a4c" stroke-width="7" fill="none" stroke-linecap="round" opacity="0"/>
+        </g>
 
-      <section class="conversation-card">
-        <div class="question-box">
-          <span id="speakerLabel">Mike</span>
-          <h2 id="questionText">How was your day?</h2>
-          <p id="questionTranslation">今日はどんな一日だった？</p>
-        </div>
+        <g id="gestureHand" opacity="0">
+          <path d="M390 420 Q430 365 448 300 Q452 286 466 292 Q471 312 458 344 Q477 321 488 334 Q491 349 468 370 Q490 356 496 372 Q495 389 467 403 Q487 398 489 414 Q479 438 442 444Z" fill="#f3c4a2"/>
+        </g>
+      </g>
+    </svg>
+    <div id="stateLabel">聞いています</div>
+  </section>
 
-        <div id="history" class="history" aria-live="polite"></div>
-
-        <div class="answers">
-          <h3>回答例</h3>
-          <div id="answerButtons"></div>
-        </div>
-
-        <form id="composer" class="composer">
-          <input id="textInput" placeholder="英語で自由入力" autocomplete="off">
-          <button type="submit">送信</button>
-          <button type="button" id="micButton" class="mic">🎙</button>
-        </form>
-        <p id="status" class="status">回答例をタップするか、英語で入力してください。</p>
-      </section>
-    </section>
-  </main>
-
-  <script src="script.js?v=040"></script>
+  <section class="panel">
+    <div class="question">
+      <b id="speaker">Mike</b>
+      <h2 id="qEn"></h2>
+      <p id="qJp"></p>
+    </div>
+    <div id="history" class="history"></div>
+    <div class="answers">
+      <h3>回答例</h3>
+      <div id="choices"></div>
+    </div>
+    <form id="form">
+      <input id="input" placeholder="英語で入力">
+      <button>送信</button>
+    </form>
+    <p id="status">回答例を選ぶか、英語で入力してください。</p>
+  </section>
+</section>
+</main>
+<script src="script.js?v=050"></script>
 </body>
 </html>
